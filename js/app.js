@@ -20,7 +20,7 @@ function agregarCurso(e) {
     e.preventDefault();
 
     /**2. Nos aseguramos que el usuario haya agregado en agregar carrito */
-    if(e.target.classList.contains('agregar-carrito')) {
+    if (e.target.classList.contains('agregar-carrito')) {
         /**3. Accedemos a todo el div que tiene el contenido del curso */
         const cursoSeleccionado = e.target.parentElement.parentElement;
         leerDatosCurso(cursoSeleccionado);
@@ -34,8 +34,8 @@ function leerDatosCurso(curso) {
 
     // Crear un objeto con el contenido del curso actual
     const infoCurso = {
-        imagen : curso.querySelector('img').src,
-        titulo : curso.querySelector('h4').textContent,
+        imagen: curso.querySelector('img').src,
+        titulo: curso.querySelector('h4').textContent,
         precio: curso.querySelector('.precio span').textContent,
         id: curso.querySelector('a').getAttribute('data-id'),
         cantidad: 1
@@ -43,7 +43,7 @@ function leerDatosCurso(curso) {
 
     //Agrega elementos al arreglo de carrito
     /**5. Lo agregamos a nuestro carrito de compras */
-    articulosCarrito = [...articulosCarrito, infoCurso] 
+    articulosCarrito = [...articulosCarrito, infoCurso]
     console.log(articulosCarrito);
 
     /**6. Imprimimos ese HTML */
@@ -58,17 +58,25 @@ function carritoHTML() {
     LimpiarHTML();
 
     //Recorre el carrito y genera el HTML
-    articulosCarrito.forEach( curso => {
+    articulosCarrito.forEach(curso => {
+        //Destructuring 
+        //<td><img src="${curso.imagen}" width="100"/></td>
+        const { imagen, titulo, precio , cantidad, id} = curso;
         const row = document.createElement('tr');
-        row.innerHTML =   `
-            <td>
-                ${curso.titulo}
-            </td>
-       `; 
+        row.innerHTML = `
+        <td><img src="${imagen}" width="100"/></td>
+        <td>${titulo}</td>
+        <td>${precio}</td>
+        <td>${cantidad}</td>
+        <td>
+            <a href="#" class="borrar-curso" data-id="${id}"> X </a>
+        </td>
 
-       //Agrega el HTML del carrito en el tbody
-       //appendChild lo agrega al final
-       contenedorCarrito.appendChild(row);
+       `;
+
+        //Agrega el HTML del carrito en el tbody
+        //appendChild lo agrega al final
+        contenedorCarrito.appendChild(row);
     })
 }
 
@@ -81,7 +89,7 @@ function LimpiarHTML() {
 
     //Se ejecuta mientras la condición sea evaluada como verdadera
     //Va vaciando uno por uno
-    while(contenedorCarrito.firstChild) {
+    while (contenedorCarrito.firstChild) {
         contenedorCarrito.removeChild(contenedorCarrito.firstChild)
     }
 }
