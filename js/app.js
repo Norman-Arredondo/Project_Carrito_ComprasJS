@@ -11,6 +11,9 @@ function cargarEventListeners() {
     // Cuando agregas un curso presionando "Agregar al Carrito"
     /**1. Agrego un curso, se genera la función de agregarCurso */
     listaCursos.addEventListener('click', agregarCurso);
+
+    // Elimina cursos del carrito
+    carrito.addEventListener('click', eliminarCurso)
 }
 
 
@@ -24,6 +27,14 @@ function agregarCurso(e) {
         /**3. Accedemos a todo el div que tiene el contenido del curso */
         const cursoSeleccionado = e.target.parentElement.parentElement;
         leerDatosCurso(cursoSeleccionado);
+    }
+}
+
+//Elimina un curso del carrito
+function eliminarCurso(e){
+    console.log(e.target.classList);
+    if(e.target.classList.contains('borrar-curso')) {
+
     }
 }
 
